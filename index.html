@@ -14,12 +14,202 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 	</head>
 	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section data-markdown>
+						<textarea data-template>
+							# Event Loop
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+						<textarea data-template>
+							# Stack and Queue
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							## Stack
+							<p>LIFO (Last In, First Out)</p>
+							<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--s_Ih2JW7--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/q5a0ym6de9ckp9buhkob.jpg" />
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							## Queue
+							<p>FIFO (First In, First Out)</p>
+							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Fifo_queue.png/350px-Fifo_queue.png" />
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+						<textarea data-template>
+							# Single thread
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							// index.js
+
+							const f3 = () => console.log('Hello world!')
+
+							const f2 = () => f3()
+
+							const f1 = () => f2()
+
+							f1()
+							// Hello world!
+							```
+						</textarea>
+				</section>
+				<section>
+					<img src="./examples/assets/2021_02_03__11_26_07_353_1.jpg" />
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+						<textarea data-template>
+							# Asynchronous JavaScript
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							// index.js
+
+							console.log('first')
+
+							setTimeout(() => console.log('second'), 0)
+
+							console.log('third')
+
+							// first, third, second
+							```
+						</textarea>
+				</section>
+				<section>
+					<img src="./examples/assets/4-1.jpg" />
+				</section>
+				<section>
+					<img src="./examples/assets/4-2.jpg" />
+				</section>
+				<section>
+					<img src="./examples/assets/4-3.jpg" />
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					# Macrotasks
+				</section>
+				<section data-markdown>
+						<textarea>
+							<ul>
+								<li>Scripts</li>
+								<li>setTimeout</li>
+								<li>Event handlers</li>
+								<li>...</li>
+							</ul>
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							// heavyScript.js
+
+							let a = 0
+
+							function heavyFunc() {
+								for (let counter = 0; counter < 1e9; counter++) {
+									a = counter
+								}
+							}
+
+							heavyFunc()
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							// heavyScript.js
+
+							function heavyFunc() {
+								do {
+									counter++
+									a = counter
+								} while (counter % 1e3 !== 0)
+
+								if (a === 1e9) {
+									return
+								} else {
+									setTimeout(heavyFunc)
+								}
+							}
+							```
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					# Microtasks
+				</section>
+				<section data-markdown>
+						<textarea>
+							<ul>
+								<li>Promise.prototype.then</li>
+								<li>Promise.prototype.catch</li>
+								<li>Promise.prototype.finally</li>
+								<li>...</li>
+							</ul>
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							queueMicrotask(callback);
+							```
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+						<textarea data-template>
+							# Event loop algorithm
+						</textarea>
+				</section>
+				<section data-markdown>
+						<textarea data-template>
+							``` js[]
+							// index.js
+
+							setTimeout(() => console.log('timer'), 0)
+
+							const promise = new Promise((resolve) => {
+								console.log('promise')
+								resolve()
+							}).then(() => console.log('then'))
+
+							console.log('log')
+
+							// promise, log, then, timer
+							```
+						</textarea>
+				</section>
+				<section>
+					<img src="https://habrastorage.org/webt/l0/z9/q2/l0z9q2s-zdltplomxlim269pu7k.png" alt="">
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					## Thanks for watching
+				</section>
+			</section>
 		</div>
+	</div>
 
 		<script src="dist/reveal.js"></script>
 		<script src="plugin/notes/notes.js"></script>
